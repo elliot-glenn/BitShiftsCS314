@@ -2,13 +2,13 @@
 // Supports shifts by 4 bits, 2 bits, and 1 bit.
 
 CHIP Barrel3 {
-    IN in[8], amt[3], rotate[1], arith[1]; // amt[3]: 3-bit control for shifting, rotate: shift vs rotate, arith: logical vs arithmetic
+    IN in[8], amt[3], rotate, arith;
     OUT out[8];
 
     PARTS:
 
     // 4-bit shift/rotate layer
-    Mux(a=in[7], b=arith ? in[7] : false, sel=amt[2], out=shift4_7); // Arithmetic shift fills with sign bit, logical fills with 0
+    Mux(a=in[7], b=arith ? in[7] : false, sel=amt[2], out=shift4_7);
     Mux(a=in[6], b=in[7], sel=amt[2], out=shift4_6);
     Mux(a=in[5], b=in[6], sel=amt[2], out=shift4_5);
     Mux(a=in[4], b=in[5], sel=amt[2], out=shift4_4);
@@ -24,7 +24,7 @@ CHIP Barrel3 {
     Mux(a=shift4_4, b=shift4_2, sel=amt[1], out=shift2_4);
     Mux(a=shift4_3, b=shift4_1, sel=amt[1], out=shift2_3);
     Mux(a=shift4_2, b=shift4_0, sel=amt[1], out=shift2_2);
-    Mux(a=shift4_1, b=arith ? in[7] : false, sel=amt[1], out=shift2_1); // Handle the sign bit for arithmetic
+    Mux(a=shift4_1, b=arith ? in[7] : false, sel=amt[1], out=shift2_1);
     Mux(a=shift4_0, b=arith ? in[7] : false, sel=amt[1], out=shift2_0);
 
     // 1-bit shift/rotate layer
@@ -35,5 +35,5 @@ CHIP Barrel3 {
     Mux(a=shift2_3, b=shift2_2, sel=amt[0], out=out[3]);
     Mux(a=shift2_2, b=shift2_1, sel=amt[0], out=out[2]);
     Mux(a=shift2_1, b=shift2_0, sel=amt[0], out=out[1]);
-    Mux(a=shift2_0, b=rotate ? in[7] : arith ? in[7] : false, sel=amt[0], out=out[0]); // Handle rotate or arithmetic fill
+    Mux(a=shift2_0, b=rotate ? in[7] : arith ? in[7] : false, sel=amt[0], out=out[0]);
 }
