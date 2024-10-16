@@ -1,0 +1,20 @@
+// 8-bit right shifter
+// Shift 1 bit or zero bits
+
+CHIP Barrel1 {
+    IN in[8], amt[1];
+    OUT out[8];
+
+    PARTS:
+
+    // 1-bit layer
+    // a is not shifted, b is shifted by 1
+    Mux(a=in[7], b=false, sel=amt[0], out=out[7]);
+    Mux(a=in[6], b=in[7], sel=amt[0], out=out[6]);
+    Mux(a=in[5], b=in[6], sel=amt[0], out=out[5]);
+    Mux(a=in[4], b=in[5], sel=amt[0], out=out[4]);
+    Mux(a=in[3], b=in[4], sel=amt[0], out=out[3]);
+    Mux(a=in[2], b=in[3], sel=amt[0], out=out[2]);
+    Mux(a=in[1], b=in[2], sel=amt[0], out=out[1]);
+    Mux(a=in[0], b=in[1], sel=amt[0], out=out[0]);
+}
