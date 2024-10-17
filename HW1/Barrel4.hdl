@@ -1,0 +1,18 @@
+CHIP Barrel4 {
+    IN in[8], amt[2], shiftRotate, arithLogic;
+    OUT out[8];
+
+    PARTS:
+    // Barrel3 instance for right shifting/rotating
+    Barrel3(rightShift, in=in, amt=amt, shiftRotate=shiftRotate, arithLogic=arithLogic);
+    
+    // Reverse instance for left shifting/rotating
+    Reverse(in=rightShift.out, out=leftShift);
+
+    // Select output based on amount and direction
+    Mux(a=rightShift.out, b=leftShift, sel=amt[1], out=out[7]); // When amt[1] is 1, select left shift
+    Mux(a=rightShift.out, b=leftShift, sel=amt[0], out=out[6]); // Further control based on amt[0]
+
+    // Final output
+    Mux(a=rightShift.out, b=leftShift, sel=shiftRotate, out=out); // Choose between right or left shift
+}

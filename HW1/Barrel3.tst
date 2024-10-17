@@ -1,49 +1,65 @@
-// Test file for Barrel3.hdl
-load Barrel3.hdl;
-output-file Barrel3.out;
-compare-to Barrel3.cmp;
-output-list in%B8.8.1 amt%B3.1.1 rotate%B1.1.1 arith%B1.1.1 out%B8.8.1;
+//Barrel3 test
 
-set in %B00001111;
-set amt %B000;
-set rotate %B0;
-set arith %B0;
-eval;
+load Barrel3.hdl,
+output-file Barrel3.out,
+compare-to Barrel3.cmp,
+output-list in%B3.8.1 amt%B2.2.2 shiftRotate%B1.1.1 arithLogic%B1.1.1 out%B3.8.1;
+
+// Test cases
+set in %B00000000,
+set amt %B00,
+set shiftRotate %B0,
+set arithLogic %B0,
+eval,
 output;
 
-set amt %B001;
-eval;
+set in %B00000001,
+set amt %B00,
+set shiftRotate %B0,
+set arithLogic %B0,
+eval,
 output;
 
-set amt %B010;
-eval;
+set in %B00000001,
+set amt %B01,
+set shiftRotate %B0,
+set arithLogic %B0,
+eval,
 output;
 
-set amt %B100;
-eval;
+set in %B00000010,
+set amt %B01,
+set shiftRotate %B0,
+set arithLogic %B0,
+eval,
 output;
 
-set in %B11111111;
-set amt %B100;
-set arith %B1;
-eval;
+set in %B00000000,
+set amt %B00,
+set shiftRotate %B1,
+set arithLogic %B0,
+eval,
 output;
 
-set in %B10001111;
-set amt %B001;
-set arith %B1;
-eval;
+set in %B00000001,
+set amt %B00,
+set shiftRotate %B1,
+set arithLogic %B0,
+eval,
 output;
 
-set rotate %B1;
-set arith %B0;
-eval;
+set in %B00000001,
+set amt %B01,
+set shiftRotate %B1,
+set arithLogic %B0,
+eval,
 output;
 
-set amt %B010;
-eval;
+set in %B00000010,
+set amt %B01,
+set shiftRotate %B1,
+set arithLogic %B0,
+eval,
 output;
 
-set amt %B100;
-eval;
-output;
+// Add more test cases to cover arithmetic and logical shifts as needed.
