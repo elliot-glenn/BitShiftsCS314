@@ -1,9 +1,14 @@
 CHIP Barrel3 {
+<<<<<<< HEAD
     IN in[8], amt[2], shiftRotate, arithLogic;  //shiftRotate = 1 rotate, arithLogic =1 arithmetic shift
+=======
+    IN in[8], amt[3], rotate, arith;
+>>>>>>> 53fd2f58e6178a2b736a0a63c4e67739e8d40c80
     OUT out[8];
 
     PARTS:
 
+<<<<<<< HEAD
     // Layer for 4-bit shift or rotate
     Mux(a=in[3], b=false, sel=shiftRotate, out=shift4_7);
     Mux(a=in[2], b=false, sel=shiftRotate, out=shift4_6);
@@ -13,6 +18,17 @@ CHIP Barrel3 {
     Mux(a=in[6], b=in[6], sel=shiftRotate, out=shift4_2);
     Mux(a=in[5], b=in[5], sel=shiftRotate, out=shift4_1);
     Mux(a=in[4], b=in[4], sel=shiftRotate, out=shift4_0);
+=======
+    // 4-bit shift/rotate layer
+    Mux(a=in[7], b=arith ? in[7] : false, sel=amt[2], out=shift4_7);
+    Mux(a=in[6], b=in[7], sel=amt[2], out=shift4_6);
+    Mux(a=in[5], b=in[6], sel=amt[2], out=shift4_5);
+    Mux(a=in[4], b=in[5], sel=amt[2], out=shift4_4);
+    Mux(a=in[3], b=in[4], sel=amt[2], out=shift4_3);
+    Mux(a=in[2], b=in[3], sel=amt[2], out=shift4_2);
+    Mux(a=in[1], b=in[2], sel=amt[2], out=shift4_1);
+    Mux(a=in[0], b=in[1], sel=amt[2], out=shift4_0);
+>>>>>>> 53fd2f58e6178a2b736a0a63c4e67739e8d40c80
 
     // Layer for 2-bit shift or rotate
     Mux(a=shift4_7, b=shift4_5, sel=amt[1], out=shift2_7);
@@ -21,6 +37,7 @@ CHIP Barrel3 {
     Mux(a=shift4_4, b=shift4_2, sel=amt[1], out=shift2_4);
     Mux(a=shift4_3, b=shift4_1, sel=amt[1], out=shift2_3);
     Mux(a=shift4_2, b=shift4_0, sel=amt[1], out=shift2_2);
+<<<<<<< HEAD
     Mux(a=shift4_1, b=shift4_7, sel=amt[1], out=shift2_1);
     Mux(a=shift4_0, b=shift4_6, sel=amt[1], out=shift2_0);
 
@@ -44,4 +61,18 @@ CHIP Barrel3 {
     Mux(a=shift1_2, b=shift1_2, sel=arithLogic, out=out[2]);
     Mux(a=shift1_1, b=shift1_1, sel=arithLogic, out=out[1]);
     Mux(a=shift1_0, b=shift1_0, sel=arithLogic, out=out[0]);
+=======
+    Mux(a=shift4_1, b=arith ? in[7] : false, sel=amt[1], out=shift2_1);
+    Mux(a=shift4_0, b=arith ? in[7] : false, sel=amt[1], out=shift2_0);
+
+    // 1-bit shift/rotate layer
+    Mux(a=shift2_7, b=shift2_6, sel=amt[0], out=out[7]);
+    Mux(a=shift2_6, b=shift2_5, sel=amt[0], out=out[6]);
+    Mux(a=shift2_5, b=shift2_4, sel=amt[0], out=out[5]);
+    Mux(a=shift2_4, b=shift2_3, sel=amt[0], out=out[4]);
+    Mux(a=shift2_3, b=shift2_2, sel=amt[0], out=out[3]);
+    Mux(a=shift2_2, b=shift2_1, sel=amt[0], out=out[2]);
+    Mux(a=shift2_1, b=shift2_0, sel=amt[0], out=out[1]);
+    Mux(a=shift2_0, b=rotate ? in[7] : arith ? in[7] : false, sel=amt[0], out=out[0]);
+>>>>>>> 53fd2f58e6178a2b736a0a63c4e67739e8d40c80
 }
