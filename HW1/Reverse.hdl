@@ -1,14 +1,15 @@
 CHIP Reverse {
-    IN in[8];
+    IN in[8], rev;
     OUT out[8];
 
     PARTS:
-    Mux(a=false, b=in[7], sel=true, out=out[0]); // out[0] gets in[7]
-    Mux(a=false, b=in[6], sel=true, out=out[1]); // out[1] gets in[6]
-    Mux(a=false, b=in[5], sel=true, out=out[2]); // out[2] gets in[5]
-    Mux(a=false, b=in[4], sel=true, out=out[3]); // out[3] gets in[4]
-    Mux(a=false, b=in[3], sel=true, out=out[4]); // out[4] gets in[3]
-    Mux(a=false, b=in[2], sel=true, out=out[5]); // out[5] gets in[2]
-    Mux(a=false, b=in[1], sel=true, out=out[6]); // out[6] gets in[1]
-    Mux(a=false, b=in[0], sel=true, out=out[7]); // out[7] gets in[0]
+    // Reverse the order of the input bits. If rev=0, do not reverse
+    Mux(a=in[0], b=in[7], sel=rev, out=out[0]);
+    Mux(a=in[1], b=in[6], sel=rev, out=out[1]); 
+    Mux(a=in[2], b=in[5], sel=rev, out=out[2]); 
+    Mux(a=in[3], b=in[4], sel=rev, out=out[3]); 
+    Mux(a=in[4], b=in[3], sel=rev, out=out[4]); 
+    Mux(a=in[5], b=in[2], sel=rev, out=out[5]); 
+    Mux(a=in[6], b=in[1], sel=rev, out=out[6]); 
+    Mux(a=in[7], b=in[0], sel=rev, out=out[7]); 
 }
